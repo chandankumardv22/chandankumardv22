@@ -1,0 +1,93 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct SLL {
+int usn;
+char name[20];
+char mode[20];
+struct SLL *next;
+};
+typedef struct SLL node;
+node *start = NULL;
+node *createNode();
+void insertEnd();
+void display();
+void deleteKey();
+void main() {
+int i, n, choice, ele;
+while(1) {
+printf("Enter your choice: ");
+printf("1: Insert\t2: Display\t3: Delete\t4: Add to branch\t5: Exit\n");
+scanf("%d", &choice);
+switch(choice) {
+case 1:
+case 4: printf("Enter number of students: \n");
+scanf("%d", &n);
+for(i = 0; i < n; i++) {
+insertEnd();
+} break;
+case 2: display(); break;
+case 3: deleteKey(); break;
+case 5: exit(0);
+default: printf("Invalid choice");
+}
+}
+}
+node *createNode() {
+node *newnode;
+newnode = (node *) malloc (sizeof(node));
+printf("Enter USN | Name | Mode: ");
+scanf("%d %s %s", &newnode->usn, newnode->name, newnode->mode);
+newnode->next = NULL;
+return newnode;
+}
+void display() {
+node *temp = start;
+if(start == NULL) {
+printf("List empty, cant delete");
+return ;
+}
+printf("Students in class are: \n");
+while(temp != NULL) {
+printf("USN: %d\tName: %s\tMode: %s\n", temp->usn, temp->name, temp->mode);
+temp = temp->next;
+}
+}
+void insertEnd() {
+node *newnode, *temp;
+newnode = createNode();
+if(start == NULL) {
+start = newnode;
+return;
+}
+temp = start;
+while(temp->next != NULL) {
+temp = temp->next;
+}
+temp->next = newnode;
+}
+void deleteKey() {
+node *temp = start, *prev;
+int key;
+if(start == NULL) {
+printf("\nList is empty, cant delete");
+}
+printf("Enter key: ");
+scanf("%d", &key);
+if(start->usn == key) {
+start = start->next;
+printf("deleted: %d", temp->usn);
+free(temp);
+}
+else {
+while(temp != NULL && temp->usn != key) {
+prev = temp;
+temp = temp->next;
+}
+if(temp == NULL) {
+printf("USN invalid");
+return;
+}
+prev->next = temp->next;
+printf("Deleted element is: %d", temp->usn);
+free(temp);
+}
