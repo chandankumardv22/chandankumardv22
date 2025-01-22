@@ -1,0 +1,19 @@
+package p10;
+import javax.swing.*; 
+import java.awt.event.*; 
+public class p10 {
+ 
+public static void main(String[] args) {
+JFrame frame = new JFrame("Text Field Example");
+ JButton button = new JButton("Click me");
+ button.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent e) {
+ JOptionPane.showMessageDialog(frame, "button clicked ");
+ }
+ });
+ frame.setLayout(new java.awt.FlowLayout());
+ frame.add(button);
+ frame.setSize(300, 150);
+ frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ frame.setVisible(true);
+}
