@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>My time table</title>
+</head>
+<body>
+    <tr>
+    <table border="11">
+    <th>Day/Time</th>
+    <th>8.30to9.35</th>
+    <th>9.25to10.20</th>
+    <th>10.20to10.40</th>
+    <th>10.40to11.35</th>
+    <th>11.35to12.30</th>
+    <th>12.30to1.10</th>
+    <th>1.10to2.05</th>
+    <th>2.05to3</th>
+    <th>3to3.55</th>
+    </tr>
+    <tr>
+        <th>Monday</th>
+        <td colspan="2">CS253</td>
+        <td rowspan="6">Tea Break</td>
+        <td>CS256</td>
+        <td>Mc251</td>
+        <td rowspan="6">Lunch Break</td>
+        <td>CS273</td>
+        <td colspan="2">PE258</td>
+    </tr>
+    <tr>
+        <th>Tuesday</th>
+        <td colspan="2">CS256</td>
+        <td>MC251</td>
+        <td>CS254</td>
+        <td>CS261</td>
+        <td colspan="2">SCN259</td>
+    </tr>
+    <tr>
+        <th>Wednesday</th>
+        <td>CS261</td>
+        <td>CS252</td>
+        <td>MC251</td>
+        <td>CS254</td>
+        <td colspan="2">CS253</td>
+        <td>WAGA</td>
+    </tr>
+    <tr>
+        <th>Thrusday</th>
+        <td>CS254</td>
+        <td>HV257</td>
+        <td>CS252</td>
+        <td>CS273</td>
+        <td>CS252</td>
+        <td>CS261</td>
+        <td>HS/CE/CG</td>
+    </tr>
+    <tr>
+        <th>Friday</th>
+        <td>CS256</td>
+        <td>CS252</td>
+        <td>CS261</td>
+        <td>MC251</td>
+        <td>HV257</td>
+        <td>CS254</td>
+        <td>Mini Project</td>
+    </tr>
+</body>
+</html>
