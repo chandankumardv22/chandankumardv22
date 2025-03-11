@@ -1,0 +1,89 @@
+[11/03, 7:09 am] Chandan Kumar DV: *{
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKjJVCSQgzVHEu7osRJ3bqlTI0SPoaEsck-Q&s);
+    color: brown;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 20px;
+}
+h2{
+    color: aquamarine;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxRfp6909QcuNO0QFiNke8PfhBBCH1vjaESw&s);
+    cursor: help;
+}
+dl{
+    cursor: text;
+}
+p{
+    cursor: crosshair;
+}
+div{
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    cursor: grab;
+}
+#layer1{
+    background-color: yellow;
+    background-image: none;
+    position: fixed;
+    z-index: 4;
+}
+#layer2{
+    background-color: blue;
+    background-image: none;
+    position: relative;
+    z-index: 1;
+
+}
+#layer3{
+    color: white;
+    background-color: brown;
+    background-image: none;
+    position: absolute;
+    z-index: 2;
+}
+#layer4{
+    background-color: azure;
+    background-image: none;
+    position: static;
+    z-index: 4;
+}
+a{
+    cursor: text;
+}
+
+
+a:link{
+    color: green;
+}
+a:hover{
+    color: aqua;
+}
+a:visited{
+    color: purple;
+}
+[11/03, 7:09 am] Chandan Kumar DV: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lb3.css">
+</head>
+<body>
+    <h2>Styling  the web page with CSS</h2>
+    <dl>
+        <dt><b>properties</b></dt>
+        <dd>backgroud image</dd>
+        <dd>text and font styles</dd>
+        <dd>styling links</dd>
+        <dd>working with layers</dd>
+        <dd>custom curser</dd>
+    </dl>
+    <a href="css">know more about css</a>
+    <p>more properties of css</p>
+    <div id="layer1">layer1</div>
+    <div id="layer2">layer2</div>
+    <div id="layer3">layer3</div>
+    <div id="layer4">layer 4</div>
+</body>
+</html>
