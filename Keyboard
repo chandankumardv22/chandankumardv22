@@ -1,0 +1,144 @@
+#include<lpc21xx.h> 
+#include<stdio.h> 
+#include "lcd.h" 
+void scan(void); 
+void get_key(void); 
+void display(void); 
+void init_port(void); 
+unsigned long int var1,res1,temp2,temp3; 
+ unsigned char flag,i,result; 
+unsigned long int scan_code[16]= {0x00EE0000,0x00ED0000,0x00EB0000,0x00E70000, 
+                                  0x00DE0000,0x00DD0000,0x00DB0000,0x00D70000, 
+                                  0x00BE0000,0x00BD0000,0x00BB0000,0x00B70000, 
+                                  0x007E0000,0x007D0000,0x007B0000,0x00770000}; 
+unsigned char ASCII_CODE[16]= {'0','1','2','3', 
+                               '4','5','6','7', 
+                               '8','9','A','B', 
+                               'C','D','E','F'};   
+unsigned char  row,col;            
+unsigned char *ptr,disp[] = "4X4 KEYPAD"; 
+unsigned char disp0[] = "KEYPAD TESTING"; 
+unsigned char disp1[] = "KEY = "; 
+int main() 
+{  
+ init_port();            
+  delay(3200); 
+ lcd_init();            
+ delay(3200);   
+    clr_disp();   
+ delay(500);        
+ ptr = disp; 
+ temp1 = 0x81;   
+ lcd_com(); 
+ delay(800);      
+ while(*ptr!='\0') 
+    { 
+     temp1 = *ptr; 
+      lcd_data(); 
+     ptr ++; 
+    }  
+   while(1)  
+ {           
+     get_key(); 
+      display();   
+ }        
+}    
+void get_key(void)              
+{ 
+ unsigned int  i;  
+ flag = 0x00; 
+    IO1PIN=0x000f0000;         
+ while(1) 
+ {   
+     for(row=0X00;row<0X04;row++) //Writing one for col's  
+        {      
+         if( row == 0X00) 
+            {  
+             temp3=0x00700000;  
+      } 
+            else if(row == 0X01) 
+            {  
+             temp3=0x00B00000; 
+      } 
+      else if(row == 0X02) 
+      { 
+             temp3=0x00D00000; 
+      } 
+            else if(row == 0X03) 
+      { 
+             temp3=0x00E00000; 
+      }  
+       var1 = temp3; 
+           IO1PIN = var1;  
+           IO1CLR =~var1;  
+           scan(); 
+           delay(100);  
+           if(flag == 0xff)  
+           break; 
+        } 
+  if(flag == 0xff) 
+  break; 
+ }  
+    for(i=0;i<16;i++) 
+    { 
+     if(scan_code[i] == res1)     
+     { 
+   result =  ASCII_CODE[i];    
+   break;                     
+       } 
+    } 
+}
+void scan(void) 
+{  
+    unsigned long int t; 
+    temp2 = IO1PIN;                            
+    temp2 = temp2 & 0x000F0000;                  
+    if(temp2 != 0x000F0000)                   
+    { 
+     delay(1000);                              
+     temp2 = IO1PIN;    
+       temp2 = temp2 & 0x000F0000;             
+ 
+        if(temp2 != 0x000F0000)                
+        { 
+         flag = 0xff; 
+           res1 = temp2;  
+           t = (temp3 & 0x00F00000);         
+           res1 = res1 | t;                    
+        } 
+        else 
+        { 
+         flag = 0x00; 
+        } 
+    } 
+}                
+void display(void) 
+{    
+    ptr = disp0; 
+ temp1 = 0x80;  
+ lcd_com();    
+ while(*ptr!='\0') 
+    { 
+     temp1 = *ptr; 
+       lcd_data(); 
+    ptr ++; 
+    }  
+    ptr = disp1; 
+ temp1 = 0xC0;  
+ lcd_com(); 
+while(*ptr!='\0') 
+{ 
+} 
+temp1 = *ptr; 
+lcd_data(); 
+ptr ++; 
+temp1 = 0xC6;   
+lcd_com(); 
+temp1 = result;     
+lcd_data();  
+}   
+void init_port() 
+{     
+IO0DIR = 0x000000FC; 
+IO1DIR = 0XFFF0FFFF; 
+} 
