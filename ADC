@@ -1,0 +1,71 @@
+#include <lpc214x.h> 
+#include <Stdio.h>  
+#include "lcd.h" 
+unsigned int adc_value=0,temp_adc=0; 
+float adc_ip; 
+char var[15],var1[15]; 
+char *ptr2; 
+char arr[]= "ADC O/P= "; 
+char *ptr1,dis[]="A I/P  = "; 
+#define vol 3.3                 
+#define fullscale 0x3ff         
+int main() 
+{         
+PINSEL1 = 0X00040000;    
+IO0DIR = 0x000000FC;        
+lcd_init();      
+delay(3200); 
+ptr2 = dis; 
+temp1 = 0x80;  
+lcd_com(); 
+delay(800);  
+while(*ptr2!='\0') 
+{ 
+temp1 = *ptr2; 
+lcd_data(); 
+ptr2++; 
+ }  
+ 
+ ptr1 = arr; 
+ temp1 = 0xC0;   
+ lcd_com(); 
+ delay(800);  
+    while(*ptr1!='\0') 
+     { 
+      temp1 = *ptr1; 
+      lcd_data(); 
+      ptr1 ++; 
+  } 
+    while(1) 
+     {     
+   AD0CR = 0x01200010;      
+   while(((temp_adc = AD0GDR) &0x80000000)  == 0x00000000); 
+     adc_value = AD0GDR;        
+     adc_value >>=6; 
+     adc_value &= 0x000003ff; 
+     adc_ip = ((float)adc_value * (float)vol)/(float)fullscale; 
+     sprintf(var1,"%4.2fV",adc_ip); 
+     sprintf(var,"%3x",adc_value); 
+        temp1 = 0x89; 
+      lcd_com(); 
+      delay(1200);  
+      ptr2 = var1; 
+         
+     while(*ptr2!='\0') 
+        {          
+       temp1=*ptr2; 
+       lcd_data();  
+          ptr2++; 
+      } 
+       temp1 = 0xc9; 
+       lcd_com(); 
+       delay(1200); 
+    ptr1 = var; 
+       while(*ptr1!='\0') 
+        {    
+         temp1=*ptr1; 
+       lcd_data(); 
+          ptr1++; 
+      }        
+     }   
+}  
